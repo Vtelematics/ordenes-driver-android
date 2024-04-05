@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/ohd_grey_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_55sdp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/_5sdp"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        <EditText
+            android:hint="New Message"
+            android:id="@+id/msg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_chat"
+            android:gravity="start|center"
+            android:imeOptions="actionDone"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:textColor="@color/black" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/select_image"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/baseline_add_a_photo_black_24dp"
+                android:layout_gravity="end"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"/>
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/send"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/baseline_send_black_24dp" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>

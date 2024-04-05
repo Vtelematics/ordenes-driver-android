@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.account.EarningHistory">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/from_date_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/from"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:gravity="center|start"
+                    android:id="@+id/from_date_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:drawableEnd="@drawable/ic_date_range_black_24dp"
+                    android:drawableRight="@drawable/ic_date_range_black_24dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/grey_500" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/total_orders"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/total_orders"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/red_light" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/to_date_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/to"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:gravity="center|start"
+                    android:id="@+id/to_date_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:drawableEnd="@drawable/ic_date_range_black_24dp"
+                    android:drawableRight="@drawable/ic_date_range_black_24dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/grey_500" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/total_earning"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/total_earnings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/red_light" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/grey_200"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/order_details_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/no_data" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

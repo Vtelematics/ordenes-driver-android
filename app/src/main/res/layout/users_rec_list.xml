@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/user_linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@color/grey_200"
+                android:src="@drawable/baseline_person_24dp" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="Restaurant"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/grey_400" />
+    </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/text_count"
+        android:textColor="@color/white"
+        android:padding="@dimen/_5sdp"
+        android:background="@drawable/bg_chat_primary_color"
+        android:text="1"
+        android:gravity="center"
+        android:layout_width="@dimen/_27sdp"
+        android:layout_height="@dimen/_27sdp"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_gravity="end|center"/>
+
+</FrameLayout>

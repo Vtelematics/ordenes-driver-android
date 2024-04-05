@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="16dp"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="16dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_category"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/shift_title"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/txt_logout_swift"
+                    android:textColor="@android:color/black"
+                    android:textSize="18dp" />
+
+                <com.github.angads25.toggle.LabeledSwitch
+                    android:id="@+id/shift_switch"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    app:colorBorder="@color/shadow"
+                    app:colorOn="@color/colorPrimary"
+                    app:colorOff="@color/white"
+                    app:textOff="OFF"
+                    app:textOn="ON" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+</LinearLayout>

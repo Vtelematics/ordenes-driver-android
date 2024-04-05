@@ -1,0 +1,222 @@
+<resources>
+    <string name="app_name">Ordenes Rider</string>
+    Ordenes Rider
+    <string name="login_app_name">Ordenes Rider</string>
+
+    <string name="auto_assign_restaurant_name">Restaurant name : </string>
+    <string name="auto_assign_preparing_time">Preparing time : </string>
+    <string name="auto_assign_order_id">Order ID : </string>
+    <string name="auto_assign_flat">Flat No : </string>
+
+    <string name="please_select_language">Please Select Language</string>
+    <string name="zone_name">Zone Name : </string>
+
+
+    <!--Login-->
+    <string name="user_name">Username</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forget_pwd">Forget Password?</string>
+
+    <!--Login Error-->
+    <string name="user_name_error">Enter your username</string>
+    <string name="password_error">Enter your password</string>
+
+    <!--Forget password-->
+    <string name="email">Email Address</string>
+    <string name="send">Send</string>
+
+    <!--Info Screen-->
+    <string name="skip">Skip</string>
+
+    <!--Language Screen-->
+    <string name="txt_language">Select the desired language, you can also change the preferences later from Setting</string>
+
+    <!-- customer info-->
+    <string name="txt_personal_details">Personal Details</string>
+    <string name="txt_bank_details">Bank Account Details</string>
+    <string name="txt_first_name">First Name</string>
+    <string name="txt_last_name">Sur Name</string>
+    <string name="txt_email_address">Email Address</string>
+    <string name="txt_phone_number">Phone Number</string>
+    <string name="txt_address">Address</string>
+    <string name="txt_name">Name</string>
+    <string name="txt_account_number">Account Number</string>
+    <string name="txt_bank">Bank</string>
+    <string name="txt_ifsc_code">IFSC Code</string>
+    <string name="txt_change_password">Change Password</string>
+    <string name="txt_save_changes">SAVE CHANGES</string>
+
+    <!-- home page -->
+    <string name="txt_my_delivery"> My Delivery - Ongoing</string>
+    <string name="txt_delivery_history"> Delivery History</string>
+    <string name="txt_setting"> Setting</string>
+    <string name="txt_support">Support</string>
+    <string name="txt_logout"> App Logout</string>
+    <string name="txt_location"> Location</string>
+    <string name="txt_nav_language"> Language</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="txt_logout_swift">Shift:</string>
+    <string name="title_activity_google_maps">Map</string>
+
+    <!--detail page-->
+    <string name="txt_bill_details">Bill Details</string>
+    <string name="txt_quantity">Quantity</string>
+    <string name="txt_total">Total</string>
+    <string name="txt_payment">Payment :</string>
+    <string name="txt_payment_status">Payment Status :</string>
+    <string name="txt_out_of_delivery">Picked</string>
+    <string name="txt_picked_awaiting">Slide to Delivered</string>
+    <string name="txt_canceled">Canceled</string>
+    <string name="txt_delivered">Completed</string>
+    <string name="txt_picked">Slide to Accepted</string>
+    <string name="txt_picked_">Slide to Picked</string>
+    <string name="txt_cancel_order">Cancel Order</string>
+    <string name="txt_cancel">Cancel</string>
+
+    <!--change password-->
+    <string name="txt_password">Change Password</string>
+    <string name="txt_old_password">Old Password</string>
+    <string name="btn_save">Save</string>
+
+    <string name="error_old_password">Old Password is invalid!</string>
+    <string name="error_password">Password must be between 4 and 20 characters!</string>
+    <string name="error_confirm">Password confirmation does not match password!</string>
+    <string name="error_confirm_password">Please enter your confirm password!</string>
+
+    <!--custom signature-->
+    <string name="btn_clear">Clear</string>
+    <string name="btn_complete">Complete Delivery</string>
+    <string name="txt_normal_view">Normal View</string>
+    <string name="txt_satellite_view">Satellite View</string>
+    <string name="loading_please_wait">Loading..</string>
+    <string name="cancel_order_title">Select reason to cancel</string>
+    <string name="empty">No data found!</string>
+    <string name="empty_user">User List is empty</string>
+
+    <!--custom text-->
+    <string name="txt_order_id">Order ID:</string>
+    <string name="txt_order_total">Order Total:</string>
+    <string name="txt_order_receive">I receive the order</string>
+    <string name="text_order_status">Order Status : </string>
+    <string name="text_order_date">Delivery Date : </string>
+    <string name="text_delivery_type">Delivery Type : </string>
+    <string name="txt_paid_amount">Amount Paid</string>
+    <string name="text_delivery">Delivery</string>
+    <string name="text_track">Track</string>
+    <string name="vendor_details">Vendor Details</string>
+    <string name="customer_details">Customer Details</string>
+    <string name="text_picked_up">Pick Up</string>
+    <string name="txt_no_internet_connection">No internet connection found.Check your internet connection and try again.</string>
+    <string name="txt_no_internet">No Connection</string>
+    <string name="txt_no_internet_toast">No internet Connection</string>
+    <string name="txt_try_again">Try Again</string>
+    <string name="txt_empty_data">No data found</string>
+    <string name="txt_amount_check">Please select if payment received.</string>
+    <string name="txt_order_conformation">Are you sure, You wanted complete the order without signature?</string>
+    <string name="please_allow_the_device_location_access">Please allow the device location access to proceed further.</string>
+    <string name="please_allow_the_device_background_location_access">Please allow the device background location access to proceed further.</string>
+
+    <string name="license_number">License Number</string>
+
+    <string name="order_id">Order ID</string>
+    <string name="order_total">Order Total</string>
+    <string name="ongoing_delivery">Ongoing Delivery</string>
+    <string name="delivery_history">Delivery History</string>
+    <string name="please_shift_login_to_proceed_further">Please Shift login to proceed further!</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="order_status_update_successfully">Order status update successfully!</string>
+    <string name="permission_accepted">Permission accepted</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="gps_disabled">Gps Disabled</string>
+    <string name="gps_is_not_enabled">Gps is not enabled.Do you want to enable?</string>
+    <string name="settings">Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="logout_shift">Logout Shift</string>
+    <string name="login_shift">Login Shift</string>
+    <string name="change_password">Change Password</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="you_have_not_picked_image">You have not picked Image</string>
+    <string name="image_upload_failed">Image upload failed!</string>
+    <string name="please_enter_your_email">Please enter your email</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="email_not_found">The E-Mail Address was not found in our records, please try again!</string>
+    <string name="please_enter_your_user_name">Please enter your User Name</string>
+    <string name="please_enter_your_password">Please enter your password</string>
+    <string name="invalid_user_name_and_or_password">Invalid user name and/or password!</string>
+    <string name="no_internet_connection">No internet Connection</string>
+    <string name="i_am_here">I am here</string>
+    <string name="location_permission_needed">Location Permission Needed</string>
+    <string name="location_access_permission">This app needs the Location permission, please accept to use location functionality</string>
+    <string name="ok">OK</string>
+    <string name="are_you_sure_you_want_to_exit_the_app">Are you sure , you want to exit the app?</string>
+
+    <string name="earning_history">Earning History</string>
+    <string name="select_your_date_of_birth">Select Your Date Of Birth</string>
+    <string name="select_date">Select Date</string>
+    <string name="submit">Submit</string>
+    <string name="please_select_the_date">Please select the date!</string>
+    <string name="please_select_from_date">Please select the from date!</string>
+
+    <string name="total_orders">Total orders</string>
+    <string name="total_earning">Total Earnings</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="no_data">No data available.</string>
+
+    <string name="items">items</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!--Language-->
+    <string name="english">English</string>
+    <!-- <string name="Swedish">Swedish</string>-->
+    <string name="language_title">Choose Language</string>
+    <string name="error">Something went wrong!</string>
+
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="can_u_deliver">There is an order near you.Can you deliver?</string>
+
+    <string name="delivery_address"><b>Delivery address : </b></string>
+    <string name="pickup_address"><b>Pickup address : </b></string>
+    <string name="payment_method"><b>Payment method : </b></string>
+
+    <string name="already_assigned">Sorry! This order already accepted by other driver.</string>
+    <string name="contactless_delivery">Contactless Delivery</string>
+
+    <!--In-App update-->
+    <string name="an_update_dowmloaded">An update has just been downloaded.</string>
+    <string name="restart">RESTART</string>
+    <string name="status">Completed</string>
+
+    <string name="delivery_complete">Are you sure do you want to complete?</string>
+
+    <string name="empty_error">We apologize! This order has already been accepted by another driver.</string>
+    <string name="empty_error1">We apologize! This order has already been accepted by another driver / unavailable.</string>
+
+    <string name="mins">mins</string>
+    <string name="take_a_photo">Take a Photo</string>
+    <string name="photo_library">Photo Library</string>
+    <string name="process_failed_please_try_again">Process Failed, Please Try Again!</string>
+    <string name="camera_permission_error">Camera Permission error</string>
+    <string name="alert">Alert</string>
+    <string name="app_needs_to_access_the_Camera">App needs to access the Camera.</string>
+    <string name="deny">DENY</string>
+    <string name="allow">ALLOW</string>
+    <string name="chat">Chat</string>
+    <string name="un_assign_orders">Unassigned Orders</string>
+    <string name="restaurant_name">Restaurant name :</string>
+    <string name="decline">Decline</string>
+    <string name="view_details">View Details</string>
+
+</resources>

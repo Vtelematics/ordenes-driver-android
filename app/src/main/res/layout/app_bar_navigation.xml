@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ordenese.rider.activity.NavigationActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@drawable/toolbar_background"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <!--<FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/toolbar_title"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ordenes_partner_logo"/>
+
+        </FrameLayout>-->
+
+    </androidx.appcompat.widget.Toolbar>
+    <!--<com.google.android.material.appbar.AppBarLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/logo_white_bg_transparent_1"/>
+
+            </FrameLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>-->
+
+    <include layout="@layout/content_navigation" />
+
+</LinearLayout>

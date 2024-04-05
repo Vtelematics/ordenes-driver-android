@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ordenes Rider</string>
+
+    <string name="login_app_name">Ordenes Rider</string>
+
+    <string name="auto_assign_restaurant_name">اسم المطعم : </string>
+    <string name="auto_assign_preparing_time">وقت التحضير : </string>
+    <string name="auto_assign_order_id">رقم التعريف الخاص بالطلب : </string>
+    <string name="auto_assign_flat">شقة لا : </string>
+
+    <string name="please_select_language">الرجاء تحديد اللغة</string>
+    <string name="zone_name">اسم المنطقة : </string>
+
+    <!--Login-->
+    <string name="user_name">اسم المستخدم</string>
+    <string name="mobile_number">رقم الهاتف المحمول</string>
+    <string name="password">كلمة المرور</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="forget_pwd">نسيت كلمة المرور?</string>
+
+    <!--Login Error-->
+    <string name="user_name_error">أدخل اسم المستخدم الخاص بك</string>
+    <string name="password_error">ادخل رقمك السري</string>
+
+    <!--Forget password-->
+    <string name="email">عنوان البريد الالكترونى</string>
+    <string name="send">إرسال</string>
+
+    <!--Info Screen-->
+    <string name="skip">يتخطى</string>
+
+    <!--Language Screen-->
+    <string name="txt_language">Select the desired language, you can also change the preferences later from Setting</string>
+
+    <!-- customer info-->
+    <string name="txt_personal_details">تفاصيل شخصية</string>
+    <string name="txt_bank_details">تفاصيل الحساب المصرفي</string>
+    <string name="txt_first_name">الاسم الاول</string>
+    <string name="txt_last_name">لقب</string>
+    <string name="txt_email_address">عنوان البريد الالكترونى</string>
+    <string name="txt_phone_number">Phone Number</string>
+    <string name="txt_address">Address</string>
+    <string name="txt_name">Name</string>
+    <string name="txt_account_number">Account Number</string>
+    <string name="txt_bank">بنك</string>
+    <string name="txt_ifsc_code">كود IFSC</string>
+    <string name="txt_change_password">غير كلمة السر</string>
+    <string name="txt_save_changes">حفظ التغييرات</string>
+
+    <!-- home page -->
+    <string name="txt_my_delivery"> التسليم الخاص بي - مستمر </string>
+    <string name="txt_delivery_history"> تاريخ التسليم</string>
+    <string name="txt_setting"> ضبط</string>
+    <string name="txt_logout"> التطبيق الخروج</string>
+    <string name="txt_location"> موقع</string>
+    <string name="txt_nav_language"> لغة</string>
+    <string name="openDrawer">درج مفتوح</string>
+    <string name="closeDrawer">إغلاق الدرج</string>
+    <string name="title_activity_navigation">نشاط الملاحة</string>
+
+    <string name="navigation_drawer_open">افتح درج التنقل</string>
+    <string name="navigation_drawer_close">أغلق درج التنقل</string>
+
+    <string name="action_settings">إعدادات</string>
+    <string name="txt_logout_swift">تحول:</string>
+    <string name="title_activity_google_maps">خريطة</string>
+
+    <!--detail page-->
+    <string name="txt_bill_details">تفاصيل الفاتورة</string>
+    <string name="txt_quantity">كمية</string>
+    <string name="txt_total">المجموع</string>
+    <string name="txt_payment">دفع :</string>
+    <string name="txt_payment_status">حالة السداد :</string>
+    <string name="txt_out_of_delivery">منتقى</string>
+    <string name="txt_picked_awaiting">قم بالتمرير للتسليم</string>
+    <string name="txt_canceled">ألغيت</string>
+    <string name="txt_delivered">مكتمل</string>
+    <string name="txt_picked">قم بالتمرير إلى "مقبول"</string>
+    <string name="txt_picked_">قم بالتمرير إلى المنتقى</string>
+    <string name="txt_cancel_order">الغاء الطلب</string>
+    <string name="txt_cancel">يلغي</string>
+
+    <!--change password-->
+    <string name="txt_password">غير كلمة السر</string>
+    <string name="txt_old_password">كلمة المرور القديمة</string>
+    <string name="btn_save">يحفظ</string>
+
+    <string name="error_old_password">كلمة المرور القديمة غير صالحة!</string>
+    <string name="error_password">يجب أن تكون كلمة المرور بين 4 و 20 حرفًا!</string>
+    <string name="error_confirm">تأكيد كلمة المرور لا يتطابق مع كلمة المرور!</string>
+    <string name="error_confirm_password">الرجاء إدخال تأكيد كلمة المرور الخاصة بك!</string>
+
+    <!--custom signature-->
+    <string name="btn_clear">صافي</string>
+    <string name="btn_complete">التسليم الكامل</string>
+    <string name="txt_normal_view">العرض العادي</string>
+    <string name="txt_satellite_view">عرض القمر الصناعي</string>
+    <string name="loading_please_wait">جار التحميل..</string>
+    <string name="cancel_order_title">حدد سببًا للإلغاء</string>
+    <string name="empty">لاتوجد بيانات!</string>
+    <string name="empty_user">قائمة المستخدمين فارغة</string>
+
+    <!--custom text-->
+    <string name="txt_order_id">رقم التعريف الخاص بالطلب:</string>
+    <string name="txt_order_total">الطلب الكلي:</string>
+    <string name="txt_order_receive">استلمت الطلب</string>
+    <string name="text_order_status">حالة الطلب : </string>
+    <string name="text_order_date">تاريخ التسليم او الوصول : </string>
+    <string name="text_delivery_type">نوع التوصيل : </string>
+    <string name="txt_paid_amount">المبلغ المدفوع</string>
+    <string name="text_delivery">توصيل</string>
+    <string name="text_track">مسار</string>
+    <string name="text_picked_up">يلتقط</string>
+    <string name="txt_no_internet_connection">لم يتم العثور على اتصال بالإنترنت. تحقق من اتصالك بالإنترنت وحاول مرة أخرى.</string>
+    <string name="txt_no_internet">لا يوجد اتصال</string>
+    <string name="txt_no_internet_toast">لا يوجد اتصال بالإنترنت</string>
+    <string name="txt_try_again">حاول ثانية</string>
+    <string name="txt_empty_data">لاتوجد بيانات</string>
+    <string name="txt_amount_check">يرجى تحديد ما إذا تم استلام الدفعة.</string>
+    <string name="txt_order_conformation">هل أنت متأكد أنك تريد إكمال الطلب بدون توقيع?</string>
+    <string name="please_allow_the_device_location_access">يرجى السماح بالوصول إلى موقع الجهاز للمضي قدمًا.</string>
+    <string name="please_allow_the_device_background_location_access">يرجى السماح بالوصول إلى موقع خلفية الجهاز للمضي قدمًا.</string>
+
+    <string name="license_number">رقم الرخصة</string>
+
+    <string name="order_id">رقم التعريف الخاص بالطلب</string>
+    <string name="order_total">الطلب الكلي</string>
+    <string name="ongoing_delivery">التسليم المستمر</string>
+    <string name="delivery_history">تاريخ التسليم</string>
+    <string name="please_shift_login_to_proceed_further">الرجاء التحول تسجيل الدخول للمضي قدما!</string>
+
+    <string name="yes">نعم</string>
+    <string name="no">رقم</string>
+    <string name="order_status_update_successfully">تم تحديث حالة الطلب بنجاح!</string>
+    <string name="permission_accepted">الإذن مقبول</string>
+    <string name="permission_denied">تم رفض الإذن</string>
+    <string name="gps_disabled">تعطيل نظام تحديد المواقع</string>
+    <string name="gps_is_not_enabled">لم يتم تمكين نظام تحديد المواقع العالمي (Gps) ، هل تريد تمكينه?</string>
+    <string name="settings">إعدادات</string>
+    <string name="cancel">يلغي</string>
+    <string name="logout_shift">تحول تسجيل الخروج</string>
+    <string name="login_shift">تحول تسجيل الدخول</string>
+    <string name="change_password">غير كلمة السر</string>
+    <string name="something_went_wrong">هناك خطأ ما</string>
+    <string name="you_have_not_picked_image">أنت لم تختر الصورة</string>
+    <string name="image_upload_failed">فشل تحميل الصورة!</string>
+    <string name="please_enter_your_email">رجاءا أدخل بريدك الإلكتروني</string>
+    <string name="invalid_email">بريد إلكتروني خاطئ</string>
+    <string name="email_not_found">لم يتم العثور على عنوان البريد الإلكتروني في سجلاتنا ، يرجى المحاولة مرة أخرى!</string>
+    <string name="please_enter_your_user_name">الرجاء إدخال اسم المستخدم</string>
+    <string name="please_enter_your_password">من فضلك أدخل رقمك السري</string>
+    <string name="invalid_user_name_and_or_password">اسم المستخدم و / أو كلمة المرور غير صالحة!</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالإنترنت</string>
+    <string name="i_am_here">أنا هنا</string>
+    <string name="location_permission_needed">إذن الموقع مطلوب</string>
+    <string name="location_access_permission">يحتاج هذا التطبيق إلى إذن الموقع ، يرجى قبول استخدام وظائف الموقع</string>
+    <string name="ok">نعم</string>
+    <string name="are_you_sure_you_want_to_exit_the_app">هل أنت متأكد أنك تريد الخروج من التطبيق؟</string>
+
+    <string name="earning_history">تاريخ الكسب</string>
+    <string name="select_your_date_of_birth">حدد تاريخ ميلادك </string>
+    <string name="select_date">حدد تاريخ</string>
+    <string name="submit">يُقدِّم</string>
+    <string name="please_select_the_date">الرجاء تحديد التاريخ!</string>
+    <string name="please_select_from_date">الرجاء تحديد من التاريخ!</string>
+
+    <string name="total_orders">إجمالي الطلبات</string>
+    <string name="total_earning">الأرباح الكلية</string>
+    <string name="from">من</string>
+    <string name="to">إلى</string>
+    <string name="no_data">لا تتوافر بيانات.</string>
+
+    <string name="items">العناصر</string>
+    <string name="btn_cancel">يلغي</string>
+
+    <!--Language-->
+    <string name="english">إنجليزي</string>
+    <!-- <string name="Swedish">السويدية</string>-->
+    <string name="language_title">اختر اللغة</string>
+    <string name="error">هناك خطأ ما!</string>
+
+    <string name="accept">قبول</string>
+    <string name="reject">رفض</string>
+    <string name="can_u_deliver">يوجد طلب بالقرب منك هل يمكنك التوصيل؟</string>
+
+    <string name="delivery_address"><b>عنوان التسليم : </b></string>
+    <string name="pickup_address"><b>عنوان الاستلام : </b></string>
+    <string name="payment_method"><b>طريقة الدفع او السداد : </b></string>
+
+    <string name="already_assigned">آسف! تم قبول هذا الطلب بالفعل من قبل السائق الآخر.</string>
+    <string name="contactless_delivery">توصيل بدون تلامس</string>
+
+    <!--In-App update-->
+    <string name="an_update_dowmloaded">تم تحميل التحديث للتو.</string>
+    <string name="restart">إعادة بدء</string>
+    <string name="status">اكتمل </string>
+
+    <string name="delivery_complete">هل أنت متأكد أنك تريد الإكمال?</string>
+
+    <string name="mins">دقيقة</string>
+    <string name="empty_error">ناسف \ نعتذر! تم قبول هذا الطلب بالفعل من قبل سائق آخر.</string>
+    <string name="empty_error1">ناسف \ نعتذر! تم قبول هذا الطلب بالفعل من قبل سائق آخر / غير متوفر.</string>
+
+    <string name="take_a_photo">التقاط صورة</string>
+    <string name="photo_library">مكتبة الصور</string>
+    <string name="process_failed_please_try_again">فشلت العملية ، يرجى المحاولة مرة أخرى!</string>
+    <string name="camera_permission_error">خطأ في إذن الكاميرا</string>
+    <string name="alert">انذار</string>
+    <string name="app_needs_to_access_the_Camera">يحتاج التطبيق للوصول إلى الكاميرا.</string>
+    <string name="deny">ينكر</string>
+    <string name="allow">السماح</string>
+    <string name="txt_support">الدعم</string>
+    <string name="chat">دردشة</string>
+    <string name="un_assign_orders">إلغاء تعيين الطلبات</string>
+    <string name="restaurant_name">اسم المطعم</string>
+    <string name="decline">انخفاض</string>
+    <string name="view_details">عرض التفاصيل</string>
+    <string name="vendor_details">تفاصيل البائع</string>
+    <string name="customer_details">تفاصيل العميل</string>
+
+
+</resources>
+

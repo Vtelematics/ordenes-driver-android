@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_info_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_btn_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_skip_info_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="15dp"
+        android:background="@drawable/draw_boarder_bg"
+        android:padding="5dp"
+        android:text="@string/skip"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</FrameLayout>

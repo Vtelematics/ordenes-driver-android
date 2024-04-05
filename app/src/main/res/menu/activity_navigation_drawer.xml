@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_delivery_history"
+            android:icon="@drawable/pending_history"
+            android:title="@string/txt_delivery_history" />
+        <item
+            android:visible="true"
+            android:id="@+id/earning_history"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="@string/earning_history"/>
+        <item
+            android:visible="false"
+            android:id="@+id/nav_language"
+            android:icon="@drawable/ic_language_black_24dp"
+            android:title="@string/txt_nav_language" />
+
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/txt_setting" />
+        <item
+            android:id="@+id/nav_support"
+            android:icon="@drawable/baseline_contact_support_primary_color_24dp"
+            android:title="@string/txt_support"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="@string/txt_logout" />
+        <item
+            android:id="@+id/nav_live_location"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="@string/txt_location"
+            android:visible="false"/>
+    </group>
+
+</menu>
