@@ -18,6 +18,15 @@ android {
 
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+
+//        signingConfigs {
+//            release {
+//                storeFile file("C:/AndroidOfficeWork/pranesh jks/OrdeneseCustomer.jks")
+//                storePassword 'OrdEnEseDeliVery@354'
+//                keyAlias 'OrdEnEseDeliVerYAlias123'
+//                keyPassword 'OrdEnEseDeliVery@354'
+//            }
+//        }
     }
 
     buildTypes {
