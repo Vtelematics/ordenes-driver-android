@@ -15,6 +15,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
@@ -41,6 +42,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.github.angads25.toggle.LabeledSwitch;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -116,6 +118,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     DatabaseReference mDatabase_loc;
     DataSnapshot mDataSnapshot_loc;
 
+    private ChildEventListener tasksListener;
+    private DatabaseReference tasksRef;
+
+
+    private Query tasksQuery;
+
     public NavigationActivity(AppContext appContext) {
         this.Application = appContext;
     }
@@ -163,7 +171,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         mProgressDialog.setMessage(getResources().getString(R.string.loading_please_wait));
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setCancelable(false);
-        mProgressDialog.show();
+        safeShowDialog();
 
         Constant.DriverStatus_ = Constant.DataGetValue(this, Constant.DriverStatus);
         Constant.Driver_Token_ = Constant.DataGetValue(this, Constant.Driver_Token);
@@ -314,8 +322,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         recyclerView.setLayoutManager(new LinearLayoutManager(NavigationActivity.this));
 
-        statusCheck();
+        //statusCheck();
+        showPermissionOnboardingDialog();
         LoadDriverStatus();
+        LoadData();
     }
 
 
@@ -374,7 +384,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 //        getNotification(menu);
 
         unassigned(menu);
-        autoAssignApiCall(menu);
+        //autoAssignApiCall(menu);
 
         return true;
     }
@@ -532,7 +542,65 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
 
-    public void statusCheck() {
+    private void showPermissionOnboardingDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Permissions Required")
+                .setMessage("This app needs the following permissions to work properly:\n\n" +
+                        "📍 Location — to track and share your delivery position\n\n" +
+                        "🔔 Notifications — to receive new order alerts\n\n" +
+                        "Please grant these permissions on the next screens.")
+                .setCancelable(false)
+                .setPositiveButton("Continue", (dialog, which) -> {
+                    dialog.dismiss();
+                    requestAllPermissions();
+                })
+                .setNegativeButton("Exit App", (dialog, which) -> {
+                    dialog.dismiss();
+                    finish();
+                })
+                .show();
+    }
+
+    private void requestAllPermissions() {
+        // Check which permissions are still needed
+        boolean needsLocation = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED;
+
+        boolean needsNotification = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            needsNotification = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED;
+        }
+
+        if (needsLocation || needsNotification) {
+            // Build list of permissions to request
+            java.util.ArrayList<String> permissionsToRequest = new java.util.ArrayList<>();
+            if (needsLocation) permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            if (needsNotification && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS);
+            }
+
+            ActivityCompat.requestPermissions(this,
+                    permissionsToRequest.toArray(new String[0]),
+                    100);
+        } else {
+            // All permissions already granted, proceed normally
+            onAllPermissionsReady();
+        }
+    }
+
+    private void onAllPermissionsReady() {
+        // This replaces what statusCheck() was doing
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            checkGpsLocationEnable();
+        }
+        LoadDriverStatus();
+        LoadData();
+    }
+
+
+    /*public void statusCheck() {
         if (ActivityCompat.checkSelfPermission(NavigationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(NavigationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -552,7 +620,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             if (dialogInterface != null)
                 dialogInterface.cancel();
         }
-    }
+    }*/
 
     private void askPermission() {
 
@@ -620,22 +688,35 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 41:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                    askPermission();
-                }
-                break;
-//            case 42:
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                } else {
-//                    askBGPermission();
-//                }
-//                break;
-            case 100:
+
+        if (requestCode == 100) {
+            boolean locationGranted = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+            if (!locationGranted) {
+                // Location was denied — show explanation with settings option
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Required")
+                        .setMessage("Location permission is required for this app to function. " +
+                                "Without it you cannot receive or deliver orders.")
+                        .setCancelable(false)
+                        .setPositiveButton("Open Settings", (dialog, i) -> {
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.fromParts("package", getPackageName(), null));
+                            startActivity(intent);
+                        })
+                        .setNegativeButton("Exit App", (dialog, i) -> finish())
+                        .show();
+            } else {
+                // Location granted, proceed
+                onAllPermissionsReady();
+            }
+
+        } else if (requestCode == 41) {
+            // Legacy handler kept for safety
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startService(new Intent(NavigationActivity.this, GoogleService.class));
+            }
         }
     }
 
@@ -724,8 +805,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             }
         }
     }
-
-    public void current_loc_update(Double latitude, Double longitude) {
+    // (bad - adds new listener every GPS update)
+    /*public void current_loc_update(Double latitude, Double longitude) {
 
         if (Constant.DataGetValue(activity, Constant.DriverStatus).equals("1")) {
             if (FirebaseDatabase.getInstance().getReference("drivers") != null) {
@@ -766,11 +847,34 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 });
             }
         }
+    }*/
+
+    // write directly without reading first
+    public void current_loc_update(Double latitude, Double longitude) {
+        if (!Constant.DataGetValue(activity, Constant.DriverStatus).equals("1")) return;
+        if (latitude == 0.0 && longitude == 0.0) return;
+
+        String Id = Constant.DataGetValue(activity, Constant.Driver_Id);
+        DatabaseReference driverRef = FirebaseDatabase.getInstance()
+                .getReference("drivers").child(Id);
+
+        driverRef.child("latitude").setValue(String.valueOf(latitude));
+        driverRef.child("longitude").setValue(String.valueOf(longitude));
+        driverRef.child("name").setValue(Constant.DataGetValue(activity, Constant.DriverName));
+        driverRef.child("telephone").setValue(Constant.DataGetValue(activity, Constant.DriverMobile));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // remove old listener before creating a new one:
+        /*if (tasksListener != null && tasksRef != null) {
+            tasksRef.removeEventListener(tasksListener);
+        }*/
+        if (tasksListener != null && tasksQuery != null) {
+            tasksQuery.removeEventListener(tasksListener);
+            tasksListener = null;
+        }
         stopLocationUpdates();
     }
 
@@ -819,34 +923,26 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     protected void onResume() {
         super.onResume();
 
-        LoadData();
+        // Refresh driver status
+
+        // Only refresh header UI, don't reload data
+        refreshDriverHeader();
 
         //If AutoAssignApiCallDB has entry means, the autoAssignApiCall() method call already tried for call but at
         // the time the app  is closed/added in background tray so that cant able to call autoAssignApiCall() to show
         // accept / reject dialogue box.So now we try to continue the autoAssignApiCall() method call.
 
-        registerReceiver(broadcastReceiver, new IntentFilter(GoogleService.str_receiver));
+        /*registerReceiver(broadcastReceiver, new IntentFilter(GoogleService.str_receiver));*/
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Android 13+ (API 33) requires export flag
+            registerReceiver(broadcastReceiver, new IntentFilter(GoogleService.str_receiver),
+                    Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(broadcastReceiver, new IntentFilter(GoogleService.str_receiver));
+        }
 
         checkGpsLocationEnable();
-
-        if (Constant.DataGetValue(NavigationActivity.this, Constant.DriverDataUpdated) != null &&
-                !Constant.DataGetValue(NavigationActivity.this, Constant.DriverDataUpdated).isEmpty() &&
-                !Constant.DataGetValue(NavigationActivity.this, Constant.DriverDataUpdated).equals("empty")) {
-
-            TextView drawerUsername = headerView.findViewById(R.id.name);
-            TextView drawerAccount = headerView.findViewById(R.id.phone);
-
-            CircleImageView drewerImage = headerView.findViewById(R.id.image_category);
-
-            drawerUsername.setText(Constant.DataGetValue(NavigationActivity.this, Constant.DriverName));
-            drawerAccount.setText(Constant.DataGetValue(NavigationActivity.this, Constant.DriverMobile));
-
-            if (Constant.DataGetValue(NavigationActivity.this, Constant.DriverImgUrl) != null && !Constant.DataGetValue(NavigationActivity.this, Constant.DriverImgUrl).isEmpty()) {
-                Constant.glide_image_loader(Constant.DataGetValue(NavigationActivity.this, Constant.DriverImgUrl), drewerImage);
-            } else {
-                Picasso.with(NavigationActivity.this).load(R.drawable.no_image).into(drewerImage);
-            }
-        }
 
         if (mHome_orders_list != null) {
             if (mHome_orders_list.size() < 2) {
@@ -860,6 +956,44 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             autoAssignApiCall(menu_temp);
         }
 
+    }
+
+    // Extract the header update into its own method:
+    private void refreshDriverHeader() {
+        View headerView = navigationView.getHeaderView(0);
+        CircleImageView drawerImage = headerView.findViewById(R.id.image_category); // ← CORRECT ID
+
+        if (drawerImage == null) return; // safety guard
+
+        String imgUrl = Constant.DataGetValue(NavigationActivity.this, Constant.DriverImgUrl);
+        if (imgUrl != null && !imgUrl.isEmpty() && !imgUrl.equals("empty")) {
+            Glide.with(NavigationActivity.this)
+                    .load(imgUrl)
+                    .error(R.drawable.no_image)
+                    .into(drawerImage);
+        } else {
+            Picasso.with(NavigationActivity.this).load(R.drawable.no_image).into(drawerImage);
+        }
+
+        if (Constant.DataGetValue(NavigationActivity.this, Constant.DriverDataUpdated) != null &&
+                !Constant.DataGetValue(NavigationActivity.this, Constant.DriverDataUpdated).isEmpty() &&
+                !Constant.DataGetValue(NavigationActivity.this, Constant.DriverDataUpdated).equals("empty")) {
+
+            TextView drawerUsername = headerView.findViewById(R.id.name);
+            TextView drawerAccount = headerView.findViewById(R.id.phone);
+            CircleImageView drewerImage = headerView.findViewById(R.id.image_category);
+
+            drawerUsername.setText(Constant.DataGetValue(NavigationActivity.this, Constant.DriverName));
+            drawerAccount.setText(Constant.DataGetValue(NavigationActivity.this, Constant.DriverMobile));
+
+            if (Constant.DataGetValue(NavigationActivity.this, Constant.DriverImgUrl) != null &&
+                    !Constant.DataGetValue(NavigationActivity.this, Constant.DriverImgUrl).isEmpty()) {
+                Constant.glide_image_loader(
+                        Constant.DataGetValue(NavigationActivity.this, Constant.DriverImgUrl), drewerImage);
+            } else {
+                Picasso.with(NavigationActivity.this).load(R.drawable.no_image).into(drewerImage);
+            }
+        }
     }
 
 //    @Override
@@ -889,107 +1023,30 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     public void LoadData() {
+        // remove old listener before creating a new one:
+        if (tasksListener != null && tasksRef != null) {
+            tasksRef.removeEventListener(tasksListener);
+            tasksListener = null;
+        }
 
-        mProgressDialog.show();
+        //mProgressDialog.show();
         mHome_orders_list.clear();
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        Query myDeliveryPostsQuery = mDatabase.child("tasks");
+        //Query myDeliveryPostsQuery = mDatabase.child("tasks");
         String Id = Constant.DataGetValue(NavigationActivity.this, Constant.Driver_Id);
 
-       /*  myDeliveryPostsQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (dataSnapshot.getKey() != null) {
-                        if (mHome_orders_list != null) {
-                            mHome_orders_list.clear();
-                        }
-                        DatabaseReference myDeliveryPosts = FirebaseDatabase.getInstance().getReference().child("tasks").child(dataSnapshot.getKey());
-                        myDeliveryPosts.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.getValue() != null) {
-                                    HashMap<String, Object> stringStringHashMap = (HashMap<String, Object>) snapshot.getValue();
-                                    if (stringStringHashMap.get("driver_id") != null) {
-                                        if (Objects.equals(stringStringHashMap.get("driver_id"), Id)) {
-                                            if (stringStringHashMap.get("status") != null) {
-                                                if (Objects.equals(stringStringHashMap.get("status"), "0")) {
-                                                    if (stringStringHashMap.get("order_status_id") != null) {
-                                                        if (!Objects.equals(stringStringHashMap.get("order_status_id"), "9")) {
-                                                            Delivery_Detail delivery_detail = new Delivery_Detail();
-                                                            delivery_detail.setOrder_id(snapshot.getKey());
-                                                            for (Map.Entry m : stringStringHashMap.entrySet()) {
-                                                                if (m.getKey() != null && m.getValue() != null) {
-                                                                    if (m.getKey().equals("marker_d_address")) {
-                                                                        delivery_detail.setDelivery_address(String.valueOf(m.getValue()));
-                                                                    } else if (m.getKey().equals("marker_p_address")) {
-                                                                        delivery_detail.setPickup_address(String.valueOf(m.getValue()));
-                                                                    } else if (m.getKey().equals("task_date_added")) {
-                                                                        delivery_detail.setDelivery_date(String.valueOf(m.getValue()));
-                                                                    } else if (m.getKey().equals("contactless_delivery")) {
-                                                                        delivery_detail.setDelivery_type(String.valueOf(m.getValue()));
-                                                                    } else if (m.getKey().equals("total")) {
-                                                                        delivery_detail.setOrder_total(String.valueOf(m.getValue()));
-                                                                    } else if (m.getKey().equals("order_status")) {
-                                                                        delivery_detail.setStatus(String.valueOf(m.getValue()));
-                                                                    } else if (m.getKey().equals("marker_d_flat")) {
-                                                                        delivery_detail.setFlatNo(String.valueOf(m.getValue()));
-                                                                    }
-                                                                }
-                                                            }
-                                                            mHome_orders_list.add(delivery_detail);
-                                                        }
-                                                    } else {
-                                                        Delivery_Detail delivery_detail = new Delivery_Detail();
-                                                        delivery_detail.setOrder_id(snapshot.getKey());
-                                                        for (Map.Entry m : stringStringHashMap.entrySet()) {
-                                                            if (m.getKey() != null && m.getValue() != null) {
-                                                                if (m.getKey().equals("marker_d_address")) {
-                                                                    delivery_detail.setDelivery_address(String.valueOf(m.getValue()));
-                                                                } else if (m.getKey().equals("marker_p_address")) {
-                                                                    delivery_detail.setPickup_address(String.valueOf(m.getValue()));
-                                                                } else if (m.getKey().equals("task_date_added")) {
-                                                                    delivery_detail.setDelivery_date(String.valueOf(m.getValue()));
-                                                                } else if (m.getKey().equals("contactless_delivery")) {
-                                                                    delivery_detail.setDelivery_type(String.valueOf(m.getValue()));
-                                                                } else if (m.getKey().equals("total")) {
-                                                                    delivery_detail.setOrder_total(String.valueOf(m.getValue()));
-                                                                } else if (m.getKey().equals("order_status")) {
-                                                                    delivery_detail.setStatus(String.valueOf(m.getValue()));
-                                                                } else if (m.getKey().equals("marker_d_flat")) {
-                                                                    delivery_detail.setFlatNo(String.valueOf(m.getValue()));
-                                                                }
-                                                            }
-                                                        }
-                                                        mHome_orders_list.add(delivery_detail);
-                                                    }
-                                                }
-                                                delivery_detail_adapter = new Delivery_Detail_Adapter();
-                                                recyclerView.setAdapter(delivery_detail_adapter);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-                }
+        // AUTO-DISMISS dialog after 3 seconds regardless of Firebase status
+        new Handler().postDelayed(() -> {
+            if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                safeDismissDialog();
             }
+        }, 3000);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        tasksRef = FirebaseDatabase.getInstance().getReference().child("tasks");
 
-            }
-        });*/
-
-        myDeliveryPostsQuery.addChildEventListener(new ChildEventListener() {
+        tasksListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -1032,12 +1089,15 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                             }
                             delivery_detail_adapter = new Delivery_Detail_Adapter();
                             recyclerView.setAdapter(delivery_detail_adapter);
+                            safeDismissDialog();
+                        }else {
+                            safeDismissDialog();
                         }
                     } else {
-                        mProgressDialog.cancel();
+                        safeDismissDialog();
                     }
                 } else {
-                    mProgressDialog.cancel();
+                    safeDismissDialog();
                 }
 //                mCount++;
             }
@@ -1099,11 +1159,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                             delivery_detail_adapter = new Delivery_Detail_Adapter();
                             recyclerView.setAdapter(delivery_detail_adapter);
                         }
+                        safeDismissDialog();
                     } else {
-                        mProgressDialog.cancel();
+                        safeDismissDialog();
                     }
                 } else {
-                    mProgressDialog.cancel();
+                    safeDismissDialog();
                 }
             }
 
@@ -1131,11 +1192,15 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                mProgressDialog.cancel();
+                safeDismissDialog();
             }
-        });
+        };
 
-        mProgressDialog.cancel();
+        //tasksRef.addChildEventListener(tasksListener);
+        tasksQuery = tasksRef.orderByChild("driver_id").equalTo(Id);
+        tasksQuery.addChildEventListener(tasksListener);
+
+        //safeDismissDialog();
     }
 
     @Override
@@ -1236,7 +1301,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                             Constant.loadToastMessage(activity, getResources().getString(R.string.process_failed_please_try_again));
                         }
                     }
-                    mProgressDialog.cancel();
+                    safeDismissDialog();
                 }
 
                 @Override
@@ -1348,7 +1413,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 ViewHolderEmpty viewHolderEmpty = (ViewHolderEmpty) holder;
                 viewHolderEmpty.tv_MenuListEmpty.setText(getString(R.string.empty));
             }
-            mProgressDialog.cancel();
         }
 
         private void LoadMapActivity(String delivery_id) {
@@ -1425,6 +1489,18 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     public interface OnLoadMoreListener {
         void onLoadMore();
+    }
+
+    private void safeShowDialog() {
+        if (mProgressDialog != null && !isFinishing() && !isDestroyed()) {
+            mProgressDialog.show();
+        }
+    }
+
+    private void safeDismissDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing() && !isFinishing() && !isDestroyed()) {
+            mProgressDialog.cancel();
+        }
     }
 
 }

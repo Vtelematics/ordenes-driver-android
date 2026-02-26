@@ -218,6 +218,8 @@
     <string name="view_details">عرض التفاصيل</string>
     <string name="vendor_details">تفاصيل البائع</string>
     <string name="customer_details">تفاصيل العميل</string>
+    <string name="txt_delivery_charge">رسوم التوصيل:</string>
+    <string name="txt_total_cost">Total</string>
 
 
 </resources>

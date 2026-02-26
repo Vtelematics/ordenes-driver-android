@@ -105,7 +105,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     ApiInterface apiInterface;
     ImageView restaurant_contact, customer_contact, restaurant_whatsapp, customer_whatsapp;
     TextView order_id, delivery_date, restaurant_mobile, customer_mobile, staus, pickup_address, contactless_delivery,
-            delivery_address, restaurant_name, customer_name, payment, tv_payment_method, mTrack, flatNo, customer_comment;
+            delivery_address, restaurant_name, customer_name, payment, tv_payment_method, mTrack, flatNo, customer_comment,
+            tv_delivery_charge,total_cost;
     RecyclerView recyclerViewProduct, recyclerViewTotal;
     ArrayList<Delivery_Detail> delivery_details = new ArrayList<>();
     LabeledSwitch btn_switch, btn_out_of_delivery, mBtn_delivered;
@@ -196,6 +197,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         restaurant_whatsapp = findViewById(R.id.restaurant_whatsapp);
         customer_whatsapp = findViewById(R.id.customer_whatsapp);
         tv_payment_method = findViewById(R.id.tv_payment_method);
+        tv_delivery_charge = findViewById(R.id.tv_delivery_charge);
+        total_cost = findViewById(R.id.tv_total_cost);
 
         contactless_delivery = findViewById(R.id.contactless_delivery);
         contactless_delivery.setVisibility(View.GONE);
@@ -219,9 +222,19 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         });
 
         if (Constant.DataGetValue(GoogleMapsActivity.this, Constant.DriverStatus).equals("1")) {
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mscrollView.getLayoutParams();
+            /*FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mscrollView.getLayoutParams();
             layoutParams.setMargins(0, 0, 0, 130);
-            mscrollView.setLayoutParams(layoutParams);
+            mscrollView.setLayoutParams(layoutParams);*/
+
+            mscrollView.setOnApplyWindowInsetsListener((v, insets) -> {
+                int navBarHeight = insets.getSystemWindowInsetBottom();
+                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mscrollView.getLayoutParams();
+                // button height (50dp) + button margin (10dp) + nav bar
+                int buttonHeightPx = (int) (60 * getResources().getDisplayMetrics().density);
+                layoutParams.setMargins(0, 0, 0, buttonHeightPx + navBarHeight);
+                mscrollView.setLayoutParams(layoutParams);
+                return insets;
+            });
             btn_switch.setVisibility(View.VISIBLE);
             btn_switch.setOnToggledListener((labeledSwitch, isOn) -> {
                 UpdateStatus("8");
@@ -452,7 +465,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                                 Delivery_Detail delivery_detail = new Delivery_Detail();
                                 delivery_detail.setOrder_id(jsonObject1.getString("order_id"));
                                 delivery_detail.setOrder_status_id(jsonObject1.getString("order_status_id"));
-                                delivery_detail.setOrder_total(jsonObject1.getString("total"));
+                                delivery_detail.setOrder_total(jsonObject1.getString("product_price"));
                                 delivery_detail.setCustomer_mobile(jsonObject1.getString("customer_mobile"));
                                 delivery_detail.setDelivery_address(jsonObject1.getString("delivery_address"));
                                 delivery_detail.setPreparing_time(jsonObject1.getString("preparing_time"));
@@ -463,6 +476,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                                 delivery_detail.setRestaurant_mobile(jsonObject1.getString("vendor_mobile"));
                                 delivery_detail.setPayment_method(jsonObject1.getString("payment_method"));
                                 delivery_detail.setStatus(jsonObject1.getString("delivery_status"));
+                                delivery_detail.setDelivery_charge(jsonObject1.getString("delivery_fee"));
+                                delivery_detail.setTotal_cost(jsonObject1.getString("total_cost"));
 
                                 if (!jsonObject1.isNull("delivery_latitude")) {
                                     delivery_detail.setDelivery_latitude(jsonObject1.getString("delivery_latitude"));
@@ -524,6 +539,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                                             delivery_address.setText(delivery_details.get(i).getDelivery_address());
                                             payment.setText(delivery_details.get(i).getOrder_total());
                                             tv_payment_method.setText(delivery_details.get(i).getPayment_method());
+                                            tv_delivery_charge.setText(delivery_details.get(i).getDelivery_charge());
+                                            total_cost.setText(delivery_details.get(i).getTotal_cost());
+
                                             Customer_Mobile_number = delivery_details.get(i).getCustomer_mobile();
                                             Restaurant_Mobile_number = delivery_details.get(i).getRestaurant_mobile();
 

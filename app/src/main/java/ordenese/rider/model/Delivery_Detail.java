@@ -9,8 +9,23 @@ public class Delivery_Detail {
 
     private String order_id, delivery_id, total, task_date_added, restaurant_mobile, customer_mobile, order_status, speed,
             marker_p_address, marker_d_address, delivery_status, pickup_geo, delivery_geo, restaurant_image, customer_image,
-            restaurant_name, customer_name, payment_method, order_status_id, contactless_delivery, marker_d_flat, status,customer_comment;
+            restaurant_name, customer_name, payment_method, order_status_id, contactless_delivery, marker_d_flat, status,customer_comment,delivery_fee,total_cost;
     private String preparing_time,pickup_latitude,pickup_longitude,delivery_latitude,delivery_longitude;
+
+    public String getDelivery_charge(){
+        return delivery_fee;
+    }
+    public void setDelivery_charge(String delivery_fee) {
+        this.delivery_fee = delivery_fee;
+    }
+   public String getTotal_cost() {
+        return total_cost;
+    }
+
+    public void setTotal_cost(String total_cost) {
+        this.total_cost = total_cost;
+    }
+
 
     public String getPickup_latitude() {
         return pickup_latitude;

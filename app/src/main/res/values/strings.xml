@@ -71,7 +71,7 @@
     <string name="txt_bill_details">Bill Details</string>
     <string name="txt_quantity">Quantity</string>
     <string name="txt_total">Total</string>
-    <string name="txt_payment">Payment :</string>
+    <string name="txt_payment">Order Amount :</string>
     <string name="txt_payment_status">Payment Status :</string>
     <string name="txt_out_of_delivery">Picked</string>
     <string name="txt_picked_awaiting">Slide to Delivered</string>
@@ -218,5 +218,8 @@
     <string name="restaurant_name">Restaurant name :</string>
     <string name="decline">Decline</string>
     <string name="view_details">View Details</string>
+    <string name="txt_delivery_charge">Delivery Fee :</string>
+    <string name="txt_total_cost">Total :</string>
+
 
 </resources>

@@ -79,7 +79,8 @@ public class Activity_delivery_history_detail extends AppCompatActivity implemen
     ImageView restaurant_contact, customer_contact, restaurant_whatsapp, customer_whatsapp;
     TextView order_id, delivery_date, restaurant_mobile, customer_mobile, staus,
             pickup_address, delivery_address, restaurant_name, customer_name,
-            payment, tv_payment_method, mTrack, contactless_delivery, flatNo;
+            payment, tv_payment_method, mTrack, contactless_delivery, flatNo,
+            tv_delivery_charge,total_cost;
     RecyclerView recyclerViewProduct, recyclerViewTotal;
     ArrayList<Delivery_Detail> delivery_details = new ArrayList<>();
     LinearLayout progress_bar_loader;
@@ -136,6 +137,8 @@ public class Activity_delivery_history_detail extends AppCompatActivity implemen
         restaurant_whatsapp = findViewById(R.id.whatsapp_restaurant);
         customer_whatsapp = findViewById(R.id.whatsapp_customer);
         tv_payment_method = findViewById(R.id.tv_payment_method);
+        tv_delivery_charge = findViewById(R.id.tv_delivery_charge);
+        total_cost = findViewById(R.id.tv_total_cost);
         mTrack = findViewById(R.id.track_location);
 
         ScrollMaps mapFragment = (ScrollMaps) getSupportFragmentManager()
@@ -288,7 +291,7 @@ public class Activity_delivery_history_detail extends AppCompatActivity implemen
 
                                 Delivery_Detail delivery_detail = new Delivery_Detail();
                                 delivery_detail.setOrder_id(jsonObject1.getString("order_id"));
-                                delivery_detail.setOrder_total(jsonObject1.getString("total"));
+                                delivery_detail.setOrder_total(jsonObject1.getString("product_price"));
                                 delivery_detail.setCustomer_mobile(jsonObject1.getString("customer_mobile"));
                                 delivery_detail.setDelivery_address(jsonObject1.getString("delivery_address"));
                                 delivery_detail.setPreparing_time(jsonObject1.getString("preparing_time"));
@@ -300,6 +303,8 @@ public class Activity_delivery_history_detail extends AppCompatActivity implemen
                                 delivery_detail.setRestaurant_mobile(jsonObject1.getString("vendor_mobile"));
                                 delivery_detail.setPayment_method(jsonObject1.getString("payment_method"));
                                 delivery_detail.setStatus(jsonObject1.getString("delivery_status"));
+                                delivery_detail.setDelivery_charge(jsonObject1.getString("delivery_fee"));
+                                delivery_detail.setTotal_cost(jsonObject1.getString("total_cost"));
 
                                 if (!jsonObject1.isNull("delivery_latitude")) {
                                     delivery_detail.setDelivery_latitude(jsonObject1.getString("delivery_latitude"));
@@ -354,8 +359,12 @@ public class Activity_delivery_history_detail extends AppCompatActivity implemen
 //                                            flatNo.setText(mFlatNo);
 
                                             delivery_address.setText(delivery_details.get(i).getDelivery_address());
+                                            // ====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
                                             payment.setText(delivery_details.get(i).getOrder_total());
                                             tv_payment_method.setText(delivery_details.get(i).getPayment_method());
+                                            tv_delivery_charge.setText(delivery_details.get(i).getDelivery_charge());
+                                            total_cost.setText(delivery_details.get(i).getTotal_cost());
+                                            // ====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
                                             Customer_Mobile_number = delivery_details.get(i).getCustomer_mobile();
                                             Restaurant_Mobile_number = delivery_details.get(i).getRestaurant_mobile();
 

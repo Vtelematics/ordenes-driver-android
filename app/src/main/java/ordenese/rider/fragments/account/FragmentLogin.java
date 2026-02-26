@@ -108,7 +108,16 @@ public class FragmentLogin extends Fragment {
                 String username = et_UserName.getText().toString();
                 String password = et_Password.getText().toString();
 
-                String user_id = OneSignal.getDeviceState().getUserId();
+                //String user_id = OneSignal.getDeviceState().getUserId();
+
+                String user_id = "";
+                try {
+                    if (OneSignal.getDeviceState() != null && OneSignal.getDeviceState().getUserId() != null) {
+                        user_id = OneSignal.getDeviceState().getUserId();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 if (user_id != null && !user_id.equals("")) {
 
